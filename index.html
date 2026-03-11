@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="color-scheme" content="dark" />
+  <title>Adult Platform | 18+</title>
+
+  <style>
+    :root {
+      --bg1: #0a0a0f;
+      --bg2: #120817;
+      --card: #14111b;
+      --text: #ffffff;
+      --muted: rgba(255, 255, 255, .72);
+      --muted2: rgba(255, 255, 255, .55);
+      --stroke: rgba(255, 255, 255, .10);
+      --shadow: 0 20px 60px rgba(0, 0, 0, .55);
+      --radius: 18px;
+      --accent: #ff2f92;
+      --accent2: #ff5cab;
+      --ok: #45ff9a;
+    }
+
+    * {
+      box-sizing: border-box
+    }
+
+    html,
+    body {
+      height: 100%
+    }
+
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--text);
+      /* ВАШ ФИРМЕННЫЙ ГРАДИЕНТ */
+      background:
+        radial-gradient(1200px 600px at 20% -10%, rgba(255, 47, 146, .25), transparent 60%),
+        radial-gradient(900px 500px at 90% 10%, rgba(255, 92, 171, .20), transparent 55%),
+        radial-gradient(900px 800px at 50% 110%, rgba(69, 255, 154, .12), transparent 55%),
+        linear-gradient(160deg, var(--bg1), var(--bg2));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 18px 14px;
+    }
+
+    .wrap {
+      width: min(480px, 100%);
+    }
+
+    .card {
+      background: linear-gradient(180deg, rgba(255, 255, 255, .05), rgba(255, 255, 255, .01));
+      border: 1px solid var(--stroke);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      position: relative;
+      backdrop-filter: blur(15px);
+    }
+
+    .hero {
+      padding: 18px 18px 0;
+      position: relative;
+    }
+
+    .heroBadge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 12px;
+      color: var(--muted);
+      background: rgba(255, 255, 255, .05);
+      border: 1px solid var(--stroke);
+      padding: 8px 10px;
+      border-radius: 999px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 99px;
+      background: var(--ok);
+      box-shadow: 0 0 10px rgba(69, 255, 154, .4);
+    }
+
+    .content {
+      padding: 14px 18px 18px;
+      text-align: center;
+    }
+
+    h1 {
+      margin: 12px 0 8px;
+      font-size: 26px;
+      line-height: 1.12;
+      letter-spacing: -0.3px;
+    }
+
+    .sub {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    /* СТИЛИ КНОПКИ */
+    .btn {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      padding: 18px 32px;
+      font-size: 18px;
+      font-weight: 700;
+      cursor: pointer;
+      width: 100%;
+      transition: all 0.2s ease;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 15px rgba(255, 47, 146, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .btn:active {
+      transform: scale(0.98);
+      opacity: 0.9;
+    }
+
+    .btn:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+
+    .loader {
+      display: none;
+      width: 22px;
+      height: 22px;
+      border: 3px solid rgba(255, 255, 255, .3);
+      border-top: 3px solid #fff;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    .footer {
+      padding: 12px 18px 16px;
+      color: rgba(255, 255, 255, .50);
+      font-size: 11px;
+      border-top: 1px solid rgba(255, 255, 255, .06);
+      background: rgba(0, 0, 0, .18);
+    }
+  </style>
+</head>
+
+<body>
+  <main class="wrap">
+    <section class="card">
+      <div class="hero">
+        <div class="heroBadge">
+          <span class="dot"></span>
+          <span><b>18+ Only</b> • Secure & Private</span>
+        </div>
+      </div>
+
+      <div class="content">
+        <h1>Continue to Adult Content</h1>
+        <p class="sub">Verify your identity to access the adult platform.</p>
+
+        <button class="btn" id="entry-btn">
+          <div class="loader" id="btn-loader"></div>
+          <span id="btn-text">ENTER NOW</span>
+        </button>
+      </div>
+
+      <footer class="footer">
+        By continuing, you confirm you are at least 18 years old.
+      </footer>
+    </section>
+  </main>
+
+  <script>
+    // ПРОВЕРЕННАЯ ССЫЛКА
+    const secret = "aHR0cHM6Ly9jYXJkaW5hbHRhbmdpYmxlLmNvbS9lbm1oc2R0ZnI/a2V5PTQwMTczNDEwODIzNWI0YThhNjM0MzU3NzNjOGNhNDgx";
+
+    const btn = document.getElementById("entry-btn");
+    const loader = document.getElementById("btn-loader");
+    const btnText = document.getElementById("btn-text");
+
+    let isHuman = false;
+    let isRedirecting = false;
+
+    const humanCheck = () => { isHuman = true; };
+    window.addEventListener('mousemove', humanCheck, { once: true });
+    window.addEventListener('touchstart', humanCheck, { once: true });
+
+    // Функция выполнения редиректа
+    function executeRedirect() {
+      if (isRedirecting) return;
+      isRedirecting = true;
+
+      btn.disabled = true;
+      loader.style.display = "block";
+      btnText.innerText = "Verifying...";
+
+      setTimeout(() => {
+        let finalLink = atob(secret);
+        const urlParams = new URLSearchParams(window.location.search);
+
+        // HilltopAds использует zoneid или zone
+        const zoneValue = urlParams.get('zoneid') || urlParams.get('zone');
+        // Добавляем параметр страны
+        const geoValue = urlParams.get('geo') || urlParams.get('country');
+
+        // Отправляем ID в Adsterra как параметр psid (Publisher Sub ID)
+        if (zoneValue) {
+          finalLink += "&psid=" + zoneValue;
+        }
+
+        // Отправляем страну в Adsterra
+        if (geoValue) {
+          finalLink += "&geo=" + geoValue;
+        }
+
+        window.location.replace(finalLink);
+      }, 1500);
+    }
+
+    // Обработчик ручного клика (с проверкой на бота)
+    btn.addEventListener("click", () => {
+      if (!isHuman) return;
+      executeRedirect();
+    });
+
+    // Авто-редирект через 2-3 секунды
+    document.addEventListener("DOMContentLoaded", () => {
+      // Случайная задержка от 2000 до 3000 мс
+      const randomDelay = Math.floor(Math.random() * (3000 - 2000 + 1)) + 2000;
+      setTimeout(() => {
+        executeRedirect();
+      }, randomDelay);
+    });
+  </script>
+</body>
+
+</html>
