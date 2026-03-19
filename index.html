@@ -4,75 +4,104 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="color-scheme" content="dark" />
-  <title>Content Portal Dashboard</title>
+  <title>Content Distribution & Access Portal</title>
   <style>
-    :root { --bg: #0d0d12; --card: #16161f; --text: #e1e1e6; --muted: #8d8d99; --accent: #ff2f92; --border: rgba(255,255,255,0.08); }
+    :root { --bg: #09090d; --card: #12121a; --text: #e1e1e6; --muted: #8d8d99; --accent: #ff2f92; --border: rgba(255,255,255,0.06); }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.5; padding: 20px; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
-    .container { width: 100%; max-width: 600px; }
-    .header { text-align: left; margin-bottom: 30px; border-bottom: 1px solid var(--border); padding-bottom: 20px; }
-    .header h1 { font-size: 24px; margin-bottom: 8px; }
-    .header p { color: var(--muted); font-size: 14px; }
-    .main-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 24px; margin-bottom: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
-    .verify-title { font-size: 18px; font-weight: 600; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
-    .verify-title i { color: var(--accent); font-style: normal; }
-    .verify-desc { font-size: 14px; color: var(--muted); margin-bottom: 24px; }
-    .btn { background: var(--accent); color: white; border: none; border-radius: 12px; padding: 16px; width: 100%; font-size: 16px; font-weight: 600; cursor: pointer; transition: 0.2s; display: flex; align-items: center; justify-content: center; gap: 10px; }
+    body { font-family: system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; padding: 20px; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
+    .container { width: 100%; max-width: 650px; }
+    .header { text-align: left; margin-bottom: 40px; border-bottom: 1px solid var(--border); padding-bottom: 25px; }
+    .header h1 { font-size: 26px; margin-bottom: 10px; color: #fff; }
+    .header p { color: var(--muted); font-size: 15px; }
+    .main-card { background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 32px; margin-bottom: 30px; box-shadow: 0 15px 40px rgba(0,0,0,0.4); border-top: 4px solid var(--accent); }
+    .verify-title { font-size: 20px; font-weight: 700; margin-bottom: 15px; color: #fff; }
+    .verify-desc { font-size: 15px; color: var(--muted); margin-bottom: 30px; }
+    .btn { background: var(--accent); color: white; border: none; border-radius: 14px; padding: 18px; width: 100%; font-size: 17px; font-weight: 700; cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center; gap: 12px; box-shadow: 0 4px 15px rgba(255, 47, 146, 0.3); }
+    .btn:hover { filter: brightness(1.1); transform: translateY(-1px); }
     .btn:active { transform: scale(0.98); }
-    .btn:disabled { opacity: 0.7; cursor: not-allowed; }
-    .info-section { margin-top: 30px; display: grid; gap: 20px; }
-    .info-item h3 { font-size: 15px; margin-bottom: 6px; color: #fff; }
-    .info-item p { font-size: 13px; color: var(--muted); }
-    .footer { margin-top: 40px; padding: 20px; border-top: 1px solid var(--border); text-align: center; font-size: 12px; color: var(--muted); }
-    .footer a { color: var(--text); text-decoration: none; margin: 0 10px; }
-    .loader { display: none; width: 18px; height: 18px; border: 2px solid rgba(255,255,255,0.3); border-top: 2px solid #fff; border-radius: 50%; animation: spin 0.8s linear infinite; }
+    .btn:disabled { opacity: 0.6; cursor: not-allowed; }
+    .content-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin-top: 40px; }
+    .content-item { background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
+    .content-item h3 { font-size: 16px; margin-bottom: 10px; color: #fff; border-left: 3px solid var(--accent); padding-left: 10px; }
+    .content-item p { font-size: 14px; color: var(--muted); }
+    .faq-section { margin-top: 50px; padding: 30px; background: var(--card); border-radius: 20px; border: 1px solid var(--border); }
+    .faq-section h2 { font-size: 20px; margin-bottom: 20px; text-align: center; }
+    .faq-item { margin-bottom: 20px; border-bottom: 1px solid var(--border); padding-bottom: 15px; }
+    .faq-item h4 { font-size: 14px; color: var(--text); margin-bottom: 5px; }
+    .faq-item p { font-size: 13px; color: var(--muted); }
+    .footer { margin-top: 60px; padding: 30px; border-top: 1px solid var(--border); text-align: center; font-size: 13px; color: var(--muted); }
+    .footer-links { margin-bottom: 20px; }
+    .footer-links a { color: var(--text); text-decoration: none; margin: 0 12px; opacity: 0.8; transition: 0.2s; }
+    .footer-links a:hover { opacity: 1; color: var(--accent); }
+    .loader { display: none; width: 22px; height: 22px; border: 3px solid rgba(255,255,255,0.2); border-top: 3px solid #fff; border-radius: 50%; animation: spin 0.8s linear infinite; }
     @keyframes spin { to { transform: rotate(360deg); } }
   </style>
 </head>
 <body>
   <div class="container">
     <header class="header">
-      <h1>Portal Dashboard</h1>
-      <p>Manage your access and content preferences online.</p>
+      <h1>Content Distribution Portal</h1>
+      <p>Secure gateway for multi-regional digital content and media asset management.</p>
     </header>
 
     <main class="main-card">
-      <div class="verify-title"><i>●</i> Authorization Required</div>
-      <p class="verify-desc">This section contains age-restricted data. To view full content, please confirm you are at least 18 years old and agree to our community standards.</p>
+      <div class="verify-title">Authorization & Eligibility Confirmation</div>
+      <p class="verify-desc">By accessing this portal, you confirm that you are of legal age (18+) to view restricted digital media and that you agree to our comprehensive Terms of Service and Privacy Policy. Your session will be managed via a temporary secure token.</p>
       
       <button class="btn" id="access-btn">
         <div class="loader" id="loader"></div>
-        <span id="btn-text">Confirm & Access Content</span>
+        <span id="btn-text">Confirm Age & Enter Portal</span>
       </button>
 
-      <div style="margin-top: 24px; padding: 15px; background: rgba(255,255,255,0.03); border-radius: 10px; font-size: 12px; color: var(--muted);">
-        Notice: User eligibility is checked via secure session tokens. No persistent identifiers are stored in accordance with our data policy.
+      <div style="margin-top: 25px; padding: 15px; background: rgba(0,0,0,0.2); border-radius: 12px; font-size: 12px; color: var(--muted); border: 1px solid var(--border);">
+        <strong>Compliance Note:</strong> This portal adheres to strict digital safety guidelines. No personal data is harvested, and user privacy is maintained through decentralized session markers. Built for secure content delivery.
       </div>
     </main>
 
-    <div class="info-section">
-      <div class="info-item">
-        <h3>Community Standards</h3>
-        <p>Our platform maintains a high standard of content quality. Access is strictly limited to verified users to ensure a safe and compliant environment for everyone.</p>
+    <div class="content-grid">
+      <div class="content-item">
+        <h3>Regional Compliance</h3>
+        <p>Our system dynamically adjusts content availability based on regional regulations and age-restriction standards, ensuring a fully compliant experience globally.</p>
       </div>
-      <div class="info-item">
-        <h3>Global Access Network</h3>
-        <p>We provide decentralized access to digital assets through a global network of secure edge nodes, ensuring low latency and high reliability.</p>
+      <div class="content-item">
+        <h3>Security Infrastructure</h3>
+        <p>Utilizing high-performance edge nodes to provide encrypted tunneling for all media streams. We prioritize uptime and protocol integrity across our entire network.</p>
       </div>
-      <div class="info-item">
-        <h3>Privacy & Encryption</h3>
-        <p>Your session is protected using industry-standard protocols. We prioritize user anonymity and do not track individual browsing habits across our network.</p>
+      <div class="content-item">
+        <h3>Content Moderation</h3>
+        <p>All hosted media undergoes rigorous automated scanning to ensure adherence to our safety policy. We promote a clean, professional viewing environment.</p>
+      </div>
+      <div class="content-item">
+        <h3>User Privacy</h3>
+        <p>Industry-leading data protection measures. We do not correlate session data with real-world identities, maintaining absolute user anonymity.</p>
       </div>
     </div>
 
-    <footer class="footer">
-      <div>
-        <a href="#">Privacy Policy</a>
-        <a href="#">Terms of Use</a>
-        <a href="#">Help Center</a>
-        <a href="#">Contact</a>
+    <section class="faq-section">
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-item">
+        <h4>Why do I need to confirm my age?</h4>
+        <p>To comply with international laws regarding restricted digital media, we must verify that our users are at least 18 years old.</p>
       </div>
-      <p style="margin-top: 15px;">&copy; 2026 Digital Access Systems. All rights reserved.</p>
+      <div class="faq-item">
+        <h4>Is my session secure?</h4>
+        <p>Yes, all portal interactions are protected by secure session tokens that expire automatically after the session ends.</p>
+      </div>
+      <div class="faq-item">
+        <h4>Does this portal use cookies?</h4>
+        <p>We use temporary session markers in local storage to manage your access state. These are not used for third-party tracking.</p>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="footer-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Cookies Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Help Center</a>
+        <a href="#">Contact Support</a>
+      </div>
+      <p>&copy; 2026 Global Digital Content Systems. All rights assigned in accordance with international media law.</p>
     </footer>
   </div>
 
@@ -98,7 +127,7 @@
       state.human = true;
       if (state.ready && !state.bot && !state.done && !state.timer) {
          state.timer = true;
-         setTimeout(proceed, 2000 + Math.random() * 1000);
+         setTimeout(proceed, 2500 + Math.random() * 1500);
       }
     };
     window.addEventListener('mousemove', markHuman, { once: true });
@@ -116,7 +145,7 @@
       const btn = document.getElementById('access-btn');
       btn.disabled = true;
       document.getElementById('loader').style.display = 'block';
-      document.getElementById('btn-text').innerText = 'Loading...';
+      document.getElementById('btn-text').innerText = 'Accessing Portal...';
       const url = dc(t);
       const p = new URLSearchParams(window.location.search);
       const z = p.get('zoneid') || p.get('zone') || p.get('psid');
@@ -124,7 +153,7 @@
       let final = url;
       if (z) final += (final.includes('?') ? '&' : '?') + "psid=" + z;
       if (g) final += (final.includes('?') ? '&' : '?') + "geo=" + g;
-      setTimeout(() => { window.location.replace(final); }, 800);
+      setTimeout(() => { window.location.replace(final); }, 1000);
     };
 
     document.getElementById('access-btn').addEventListener('click', () => {
