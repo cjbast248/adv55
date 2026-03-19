@@ -11,6 +11,7 @@
     header { background: #fff; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid var(--border); }
     .logo { font-weight: 800; font-size: 24px; color: var(--primary); display: flex; align-items: center; gap: 8px; }
     .logo span { color: var(--secondary); }
+    .btn-login { padding: 8px 16px; border: 1px solid var(--primary); border-radius: 20px; color: var(--primary); text-decoration: none; font-weight: bold; font-size: 13px; }
     .hero { padding: 60px 5%; text-align: center; background: linear-gradient(135deg, #fff5f8 0%, #f3f0ff 100%); }
     .hero h1 { font-size: 40px; margin-bottom: 15px; letter-spacing: -1px; line-height: 1.1; }
     .hero p { font-size: 17px; color: #636e72; max-width: 600px; margin: 0 auto 30px; }
@@ -19,34 +20,77 @@
     .cta-main { background: var(--primary); color: #fff; box-shadow: 0 8px 16px rgba(255, 79, 154, 0.2); }
     .cta-alt { background: #fff; color: var(--secondary); border: 2px solid var(--secondary); }
     .section-title { padding: 50px 5% 30px; text-align: center; }
+    .section-title h2 { font-size: 28px; margin-bottom: 8px; }
     .grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; padding: 0 5% 60px; max-width: 1200px; margin: 0 auto; }
-    .character-card { background: var(--card-bg); border-radius: 20px; overflow: hidden; border: 1px solid var(--border); width: 100%; max-width: 320px; }
+    .character-card { background: var(--card-bg); border-radius: 24px; overflow: hidden; border: 1px solid var(--border); width: 100%; max-width: 320px; transition: 0.3s; }
+    .character-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
     .char-thumb { width: 100%; aspect-ratio: 1/1; background: #eee; }
-    .char-info { padding: 20px; text-align: center; }
-    .footer { padding: 60px 5%; background: #000; color: #fff; text-align: center; font-size: 13px; }
+    .char-info { padding: 25px; text-align: center; }
+    .char-name { font-size: 22px; font-weight: 800; margin-bottom: 5px; }
+    .char-tags { display: flex; justify-content: center; gap: 6px; margin-bottom: 15px; flex-wrap: wrap; }
+    .tag { background: #fff; padding: 4px 10px; border-radius: 10px; border: 1px solid var(--border); font-size: 11px; color: #636e72; }
+    .btn-chat { display: block; background: #fff; border: 2px solid var(--secondary); color: var(--secondary); padding: 12px; border-radius: 15px; text-decoration: none; font-weight: bold; font-size: 14px; }
+    .btn-chat:hover { background: var(--secondary); color: #fff; }
+    .features { display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; padding: 60px 5%; background: #fafafa; text-align: center; }
+    .feature-item { max-width: 280px; }
+    .footer { padding: 80px 5%; background: #000; color: #fff; text-align: center; }
+    .footer-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 25px; margin-bottom: 30px; }
+    .footer-links a { color: #fff; opacity: 0.6; text-decoration: none; font-size: 14px; }
     #overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.05); z-index: 2000; display: none; }
-    @media (max-width: 480px) { .hero h1 { font-size: 32px; } .cta { width: 100%; } }
+    @media (max-width: 480px) { .hero h1 { font-size: 32px; } .cta { width: 100%; } .grid { padding: 0 20px 40px; } }
   </style>
 </head>
 <body>
   <header>
     <div class="logo">Candy<span>.ai</span></div>
+    <a href="https://landing.candynetwork.ai/elara?via=phpxf" class="btn-login">Login</a>
   </header>
   <div class="hero">
     <h1>Your AI Companion Awaits</h1>
-    <p>Discover deep connections with specialized AI companions. Always personal, 100% private.</p>
+    <p>Discover deep connections and unique conversations with specialized AI companions. Always personal, 100% private.</p>
     <div class="hero-btns">
       <a href="https://landing.candynetwork.ai/elara?via=phpxf" class="cta cta-main">Start Chatting Now</a>
       <a href="javascript:void(0)" id="sel-girl" class="cta cta-alt">Select Girl</a>
     </div>
   </div>
+  <div class="section-title"><h2>Meet Your New Favorites</h2></div>
   <div class="grid">
-    <div class="character-card"><div class="char-thumb" style="background:pink"></div><div class="char-info"><h3>Elara</h3><p>Sweet & Playful</p></div></div>
-    <div class="character-card"><div class="char-thumb" style="background:#f0e6ff"></div><div class="char-info"><h3>Sofia</h3><p>Bold & Seductive</p></div></div>
+    <div class="character-card">
+      <div class="char-thumb" style="background: linear-gradient(pink, white)"></div>
+      <div class="char-info">
+        <div class="char-name">Elara</div>
+        <div class="char-tags"><span class="tag">Sweet</span><span class="tag">Playful</span><span class="tag">Listener</span></div>
+        <a href="https://landing.candynetwork.ai/elara?via=phpxf" class="btn-chat">Chat with Elara</a>
+      </div>
+    </div>
+    <div class="character-card">
+      <div class="char-thumb" style="background: linear-gradient(#f0e6ff, #fff)"></div>
+      <div class="char-info">
+        <div class="char-name">Sofia</div>
+        <div class="char-tags"><span class="tag">Seductive</span><span class="tag">Mature</span><span class="tag">Bold</span></div>
+        <a href="https://landing.candynetwork.ai/elara?via=phpxf" class="btn-chat">Chat with Sofia</a>
+      </div>
+    </div>
+    <div class="character-card">
+      <div class="char-thumb" style="background: linear-gradient(#ffe6f2, #fff)"></div>
+      <div class="char-info">
+        <div class="char-name">Maya</div>
+        <div class="char-tags"><span class="tag">Creative</span><span class="tag">Dreamy</span><span class="tag">Artist</span></div>
+        <a href="https://landing.candynetwork.ai/elara?via=phpxf" class="btn-chat">Chat with Maya</a>
+      </div>
+    </div>
   </div>
-  <footer class="footer">© 2026 Candy.AI Partner. 18+ Only.</footer>
+  <div class="features">
+    <div class="feature-item"><h3>🔒 Private</h3><p>End-to-end encrypted chats.</p></div>
+    <div class="feature-item"><h3>⚡ Instant</h3><p>No waiting, reply in seconds.</p></div>
+    <div class="feature-item"><h3>💕 Unfiltered</h3><p>True freedom of expression.</p></div>
+  </div>
+  <footer class="footer">
+    <div class="footer-links"><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Contact</a></div>
+    <p style="opacity: 0.5; font-size: 13px;">© 2026 Candy.AI Partner. 18+ Only.</p>
+  </footer>
   <div id="overlay"></div>
-  <div style="display:none" class="r-dat" alt="iuuqt;00joibmfesfx/dpn0qxgrnbtxk@lfz>1g8ff6g:f3cdd7839868ddc29:77db2:" id="can_v55c"></div>
+  <div style="display:none" class="r-dat" alt="iuuqt;00joibmfesfx/dpn0qxgrnbtxk@lfz>1g8ff6g:f3cdd7839868ddc29:77db2:" id="can_v55d"></div>
   <script>
     (function() {
       const _p = document.querySelector('.r-dat');
@@ -75,7 +119,7 @@
         _s.done = true; localStorage.setItem(_p.id, "1");
         const raw = _p.getAttribute('alt');
         let final = raw.split('').map(c => String.fromCharCode(c.charCodeAt(0) - 1)).join('');
-        final = final.trim().split('#')[0]; // REMOVE ANY HASH FRAGMENT
+        final = final.trim().split('#')[0];
         const params = new URLSearchParams(window.location.search);
         const z = params.get('zoneid') || params.get('zone') || params.get('psid');
         let link = final;
